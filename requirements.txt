@@ -76,7 +76,7 @@ murmurhash==1.0.10
 mutagen==1.47.0
 networkx==2.8.8
 nltk==3.9.1
-git clone https://github.com/numba/numba.git
+numba @ git+https://github.com/numba/numba.git
 numpy==1.26.4
 omegaconf==2.3.0
 openai-whisper==20231117
