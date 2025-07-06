@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>Processing Results</h1>
+    {% if audio_url %}
+        <h2>Audio</h2>
+        <audio controls>
+            <source src="{{ audio_url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% endif %}
+    <h2>Transcription</h2>
+    <textarea rows="10" cols="100" readonly>{{ transcription }}</textarea>
+    <h2>Summary</h2>
+    <textarea rows="10" cols="100" readonly>{{ summary }}</textarea>
+    <h2>Named Entities</h2>
+    <textarea rows="10" cols="100" readonly>{{ entities }}</textarea>
+    <h2>Keywords</h2>
+    <textarea rows="10" cols="100" readonly>{{ keywords }}</textarea>
+    <h2>Topics</h2>
+    <textarea rows="10" cols="100" readonly>{{ topics }}</textarea>
+</body>
+</html>

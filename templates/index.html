@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Video Transcription and Summarization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #326aab;
+            --secondary-color: #28a745;
+            --accent-color: #d12c7f;
+            --dark-bg: #021704;
+            --light-bg: rgba(232, 231, 197, 0.9);
+            --results-bg: rgba(205, 232, 197, 0.95);
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            object-fit: cover;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.8rem;
+            margin: 30px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ai-decoration {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .ai-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 8rem;
+            color: var(--primary-color);
+            animation: spin 20s linear infinite;
+        }
+
+        .ai-2 {
+            bottom: 15%;
+            right: 5%;
+            font-size: 10rem;
+            color: var(--accent-color);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        .container {
+            background-color: var(--light-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 10px rgba(50, 106, 171, 0.3);
+        }
+
+        input::placeholder {
+            color: #777;
+            font-style: italic;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .results-container {
+            background-color: var(--results-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.2em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 10px rgba(50, 106, 171, 0.3);
+        }
+
+        .processing-message {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 30px 0;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        .success-message {
+            color: var(--secondary-color);
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: rgba(220, 53, 69, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-container {
+            margin-top: 20px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--primary-color);
+            background-color: rgba(50, 106, 171, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .copy-btn {
+            background-color: #6c757d;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 20px;
+            border-radius: 8px;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container, .results-container {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .tab-buttons {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+        }
+        .file-upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .file-upload-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .file-upload-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .file-upload-btn:hover {
+            background-color: #285a8f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .file-name-display {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .file-upload-display {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+        /* Animation for AI elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .pdf-btn {
+    background-color: #d12c7f;
+    color: white;
+}
+
+.pdf-btn:hover {
+    background-color: #b0256a;
+}
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script>
+    const { jsPDF } = window.jspdf;
+</script>
+</head>
+<body>
+    <!-- AI Background Video -->
+    <video autoplay muted loop id="video-background">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-background-with-moving-lines-158-large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Decorative AI Elements -->
+    <div class="ai-decoration ai-1 floating">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div class="ai-decoration ai-2 floating">
+        <i class="fas fa-brain"></i>
+    </div>
+    <div class="page-wrapper">
+        <h1>
+            <i class="fas fa-robot"></i> AI-Powered Video Transcription And Summarization
+        </h1>
+        
+        <div class="container">
+            <form id="podcastForm" action="{{ url_for('process_podcast') }}" method="post" enctype="multipart/form-data" onsubmit="showProcessing()">
+                <div class="form-group">
+                    <label for="youtube_url">
+                        <i class="fas fa-link"></i> Enter YouTube URL:
+                    </label>
+                    <input type="text" id="youtube_url" name="youtube_url" 
+                           placeholder="https://www.youtube.com/watch?v=...">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-upload"></i> Or Upload Video/Audio File:
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="file_upload" name="file_upload" accept=".mp4,.mov,.avi,.mkv,.mp3,.wav" style="display: none;">
+                        <div class="file-upload-display">
+                            <button type="button" class="file-upload-btn" onclick="document.getElementById('file_upload').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Choose File
+                            </button>
+                            <span id="file-name" class="file-name-display">No file selected</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit">
+                        <i class="fas fa-cogs"></i> Process Content
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="progress-container" class="progress-container">
+            <div id="progress-bar" class="progress-bar">0%</div>
+        </div>
+
+        <p id="processing-message" class="processing-message">
+            <i class="fas fa-spinner fa-spin"></i> Processing your video. This may take a few moments...
+        </p>
+
+        {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+            </div>
+        {% endif %}
+
+        <div id="results" class="results-container" {% if transcription or summary %}style="display: block;"{% endif %}>
+            {% if processing_complete %}
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i> Processing complete!
+                </div>
+            {% endif %}
+
+            {% if audio_url %}
+                <h3 class="section-title">
+                    <i class="fas fa-music"></i> Audio Preview
+                </h3>
+                <audio controls class="audio-player">
+                    <source src="{{ audio_url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% endif %}
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    {% if transcription %}
+                    <button class="tab-btn active" onclick="openTab(event, 'transcription-tab')">
+                        <i class="fas fa-file-alt"></i> Transcription
+                    </button>
+                    {% endif %}
+                    {% if summary %}
+                    <button class="tab-btn {% if not transcription %}active{% endif %}" onclick="openTab(event, 'summary-tab')">
+                        <i class="fas fa-newspaper"></i> Summary
+                    </button>
+                    {% endif %}
+                    {% if entities %}
+                    <button class="tab-btn" onclick="openTab(event, 'entities-tab')">
+                        <i class="fas fa-tags"></i> Entities
+                    </button>
+                    {% endif %}
+                    {% if keywords %}
+                    <button class="tab-btn" onclick="openTab(event, 'keywords-tab')">
+                        <i class="fas fa-key"></i> Keywords
+                    </button>
+                    {% endif %}
+                    {% if topics %}
+                    <button class="tab-btn" onclick="openTab(event, 'topics-tab')">
+                        <i class="fas fa-project-diagram"></i> Topics
+                    </button>
+                    {% endif %}
+                    {% if processing_complete %}
+                    <button class="tab-btn" onclick="openTab(event, 'mindmap-tab')">
+                        <i class="fas fa-sitemap"></i> Mindmap
+                    </button>
+                    {% endif %}
+                </div>
+
+                {% if transcription %}
+                <div id="transcription-tab" class="tab-content active">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-alt"></i> Full Transcription
+                    </h3>
+                    <textarea id="transcription-text" readonly>{{ transcription }}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('transcription-text')">
+                        <i class="fas fa-copy"></i> Copy Transcription
+                    </button>
+                </div>
+                {% endif %}
+
+                {% if summary %}
+                <div id="summary-tab" class="tab-content {% if not transcription %}active{% endif %}">
+                    <h3 class="section-title">
+                        <i class="fas fa-newspaper"></i> Summary
+                    </h3>
+                    <textarea id="summary-text" readonly>{{ summary }}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('summary-text')">
+                        <i class="fas fa-copy"></i> Copy Summary
+                    </button>
+                </div>
+                {% endif %}
+
+                {% if entities %}
+                <div id="entities-tab" class="tab-content">
+                    <h3 class="section-title">
+                        <i class="fas fa-tags"></i> Named Entities
+                    </h3>
+                    <textarea id="entities-text" readonly>{{ entities }}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('entities-text')">
+                        <i class="fas fa-copy"></i> Copy Entities
+                    </button>
+                </div>
+                {% endif %}
+
+                {% if keywords %}
+                <div id="keywords-tab" class="tab-content">
+                    <h3 class="section-title">
+                        <i class="fas fa-key"></i> Key Phrases
+                    </h3>
+                    <textarea id="keywords-text" readonly>{{ keywords }}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('keywords-text')">
+                        <i class="fas fa-copy"></i> Copy Keywords
+                    </button>
+                </div>
+                {% endif %}
+
+                {% if topics %}
+                <div id="topics-tab" class="tab-content">
+                    <h3 class="section-title">
+                        <i class="fas fa-project-diagram"></i> Detected Topics
+                    </h3>
+                    <textarea id="topics-text" readonly>{{ topics }}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('topics-text')">
+                        <i class="fas fa-copy"></i> Copy Topics
+                    </button>
+                </div>
+                {% endif %}
+                {% if processing_complete %}
+                <div id="mindmap-tab" class="tab-content">
+                    <h3 class="section-title">
+                        <i class="fas fa-sitemap"></i> Mindmap
+                    </h3>
+                    <p>
+                        <a href="{{ mindmap_url }}" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View Mindmap
+                        </a> 
+                        <span class="file-name-display">Click to open in a new tab</span>
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="button-group">
+                <button class="btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i> Process Another Video
+                </button>
+                {% if transcription %}
+                <button onclick="downloadText('transcription.txt', document.getElementById('transcription-text').value)">
+                <i class="fas fa-download"></i> Download Transcription
+                </button>
+                {% endif %}
+                {% if summary %}
+                <button onclick="downloadText('summary.txt', document.getElementById('summary-text').value)">
+                 <i class="fas fa-download"></i> Download Summary
+                </button>
+                {% endif %}
+                <button class="pdf-btn" onclick="generatePDF()">
+                <i class="fas fa-file-pdf"></i> Download Full Report (PDF)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show processing message and progress bar
+        function showProcessing() {
+            document.getElementById('processing-message').style.display = 'block';
+            document.getElementById('progress-container').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            // Simulate progress (in a real app, you'd use websockets or polling)
+            let progress = 0;
+            const progressBar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = Math.round(progress) + '%';
+            }, 500);
+        }
+
+        // Tab functionality
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('podcastForm').reset();
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('processing-message').style.display = 'none';
+            document.getElementById('progress-container').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const textarea = document.getElementById(elementId);
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const originalText = textarea.placeholder;
+            textarea.placeholder = 'Copied to clipboard!';
+            setTimeout(() => {
+                textarea.placeholder = originalText;
+            }, 2000);
+        }
+
+// Download text as file
+function downloadText(filename, text) {
+    // Decode any HTML entities that might be in the text
+    const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
+    
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(decodedText));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+        // Auto-select first tab if none is active
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-content');
+            if (tabs.length > 0 && !document.querySelector('.tab-content.active')) {
+                tabs[0].classList.add('active');
+            }
+            
+            // If there's an error, show the results container
+            if (document.querySelector('.error-message')) {
+                document.getElementById('results').style.display = 'block';
+            }
+
+            document.getElementById('file_upload').addEventListener('change', function(e) {
+            const fileNameDisplay = document.getElementById('file-name');
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+                // Clear YouTube URL if file is selected
+                document.getElementById('youtube_url').value = '';
+            } else {
+                fileNameDisplay.textContent = 'No file selected';
+            }
+        });
+
+        // Add this to your form validation
+        document.getElementById('podcastForm').addEventListener('submit', function(e) {
+            const youtubeUrl = document.getElementById('youtube_url').value;
+            const fileInput = document.getElementById('file_upload');
+            
+            if (!youtubeUrl && (!fileInput.files || fileInput.files.length === 0)) {
+                alert('Please provide either a YouTube URL or upload a file');
+                e.preventDefault();
+                return false;
+            }
+            
+            if (youtubeUrl && fileInput.files.length > 0) {
+                alert('Please provide either a YouTube URL OR a file, not both');
+                e.preventDefault();
+                return false;
+            }
+            
+            return true;
+        });
+        });
+        function generatePDF() {
+    try {
+        // Check if jsPDF is available
+        if (typeof jsPDF === 'undefined') {
+            alert('PDF library not loaded. Please try again.');
+            return;
+        }
+
+        // Initialize PDF
+        const doc = new jsPDF();
+        
+        // Set document properties
+        doc.setProperties({
+            title: 'Video Analysis Report',
+            subject: 'AI-generated video analysis',
+            author: 'AI Transcription Tool',
+            keywords: 'ai, transcription, summary',
+            creator: 'AI Transcription Tool'
+        });
+
+        // Add title page
+        doc.setFontSize(20);
+        doc.setTextColor(50, 106, 171); // Using your primary color
+        doc.text('AI-Powered Video Analysis Report', 105, 30, { align: 'center' });
+        
+        doc.setFontSize(14);
+        doc.setTextColor(100);
+        doc.text('Comprehensive Analysis Report', 105, 40, { align: 'center' });
+        
+        // Add decorative elements using your theme colors
+        doc.setDrawColor(50, 106, 171);
+        doc.setLineWidth(0.5);
+        doc.line(50, 45, 160, 45);
+        
+        doc.setFontSize(12);
+        doc.text(`Generated on ${new Date().toLocaleString()}`, 105, 55, { align: 'center' });
+        
+        // Add page break
+        doc.addPage();
+
+        let yPosition = 20;
+        
+        // Helper function to add section with error handling
+        const addSection = (title, content, isList = false) => {
+            try {
+                if (!content || content.trim() === '') return;
+                
+                doc.setFontSize(14);
+                doc.setTextColor(50, 106, 171); // Primary color
+                doc.text(title, 14, yPosition);
+                yPosition += 8;
+                
+                doc.setDrawColor(50, 106, 171);
+                doc.setLineWidth(0.3);
+                doc.line(14, yPosition, 60, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(11);
+                doc.setTextColor(20);
+                
+                if (isList) {
+                    const items = content.split('\n').filter(item => item.trim() !== '');
+                    if (items.length === 0) return;
+                    
+                    const tableData = items.map(item => [item.trim()]);
+                    doc.autoTable({
+                        startY: yPosition,
+                        head: [['']],
+                        body: tableData,
+                        theme: 'grid',
+                        headStyles: { 
+                            fillColor: [50, 106, 171], // Primary color
+                            textColor: [255, 255, 255]
+                        },
+                        margin: { left: 14 },
+                        styles: { cellPadding: 3 }
+                    });
+                    yPosition = doc.lastAutoTable.finalY + 10;
+                } else {
+                    const splitText = doc.splitTextToSize(content, 180);
+                    doc.text(splitText, 14, yPosition);
+                    yPosition += splitText.length * 7 + 10;
+                }
+                
+                // Add page if needed
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            } catch (e) {
+                console.error(`Error adding section ${title}:`, e);
+            }
+        };
+        
+        // Add all available sections with error handling
+        try {
+            {% if summary %}
+            addSection('1. Summary', document.getElementById('summary-text').value);
+            {% endif %}
+            
+            {% if transcription %}
+            addSection('2. Full Transcription', document.getElementById('transcription-text').value);
+            {% endif %}
+            
+            {% if keywords %}
+            addSection('3. Key Phrases', document.getElementById('keywords-text').value, true);
+            {% endif %}
+            
+            {% if entities %}
+            addSection('4. Named Entities', document.getElementById('entities-text').value, true);
+            {% endif %}
+            
+            {% if topics %}
+            addSection('5. Detected Topics', document.getElementById('topics-text').value, true);
+            {% endif %}
+        } catch (e) {
+            console.error('Error adding content sections:', e);
+        }
+        
+        // Add footer
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text('Generated by AI Video Analysis Tool', 105, 285, { align: 'center' });
+        
+        // Save the PDF
+        doc.save('video_analysis_report.pdf');
+        
+    } catch (error) {
+        console.error('PDF generation failed:', error);
+        alert('Failed to generate PDF. Please check console for details.');
+    }
+}
+</script>
+</body>
+</html>
