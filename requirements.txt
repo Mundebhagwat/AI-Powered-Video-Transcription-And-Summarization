@@ -1,168 +1,168 @@
-absl-py==2.1.0
-aiohappyeyeballs==2.4.0
-aiohttp==3.10.5
-aiosignal==1.3.1
-alembic==1.13.2
-annotated-types==0.7.0
-antlr4-python3-runtime==4.9.3
-asteroid-filterbanks==0.4.0
-async-timeout==4.0.3
-attrs==24.2.0
-audioread==3.0.1
-backports.cached-property==1.0.2
-bertopic==0.16.3
-blinker==1.8.2
-blis==0.7.11
-Brotli==1.1.0
-catalogue==2.0.10
-certifi==2024.7.4
-cffi==1.17.0
-charset-normalizer==3.3.2
-click==8.1.7
-cloudpathlib==0.18.1
-colorama==0.4.6
-colorlog==6.8.2
-confection==0.1.5
-contourpy==1.2.1
-cycler==0.12.1
-cymem==2.0.8
-decorator==5.1.1
-docopt==0.6.2
-einops==0.3.2
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl#sha256=86cc141f63942d4b2c5fcee06630fd6f904788d2f0ab005cce45aadb8fb73889
-ffmpeg==1.4
-ffprobe==0.5
-filelock==3.15.4
-Flask==3.0.3
-fonttools==4.53.1
-frozenlist==1.4.1
-fsspec==2024.6.1
-future==1.0.0
-gensim==4.3.3
-greenlet==3.0.3
-grpcio==1.66.0
-hdbscan==0.8.38.post1
-hmmlearn==0.2.8
-huggingface-hub==0.24.6
-HyperPyYAML==1.2.2
-idna==3.7
-importlib_metadata==8.4.0
-importlib_resources==6.4.4
-itsdangerous==2.2.0
-Jinja2==3.1.4
-joblib==1.4.2
-julius==0.2.7
-keybert==0.8.5
-kiwisolver==1.4.5
-langcodes==3.4.0
-language_data==1.2.0
-lazy_loader==0.4
-librosa==0.9.2
-lightning==2.4.0
-lightning-utilities==0.11.6
-llvmlite==0.43.0
-Mako==1.3.5
-marisa-trie==1.2.0
-Markdown==3.7
-markdown-it-py==3.0.0
-MarkupSafe==2.1.5
-matplotlib==3.9.2
-mdurl==0.1.2
-more-itertools==10.4.0
-mpmath==1.3.0
-msgpack==1.0.8
-multidict==6.0.5
-murmurhash==1.0.10
-mutagen==1.47.0
-networkx==2.8.8
-nltk==3.9.1
+absl-py @ git+https://github.com/abseil/abseil-py.git@v2.1.0
+aiohappyeyeballs @ git+https://github.com/sethmlarson/aiohappyeyeballs.git@2.4.0
+aiohttp @ git+https://github.com/aio-libs/aiohttp.git@v3.10.5
+aiosignal @ git+https://github.com/aio-libs/aiosignal.git@1.3.1
+alembic @ git+https://github.com/sqlalchemy/alembic.git@v1.13.2
+annotated-types @ git+https://github.com/annotated-types/annotated-types.git@0.7.0
+antlr4-python3-runtime @ git+https://github.com/antlr/antlr4.git@4.9.3
+asteroid-filterbanks @ git+https://github.com/asteroid-team/asteroid-filterbanks.git@0.4.0
+async-timeout @ git+https://github.com/aio-libs/async-timeout.git@4.0.3
+attrs @ git+https://github.com/python-attrs/attrs.git@24.2.0
+audioread @ git+https://github.com/beetbox/audioread.git@v3.0.1
+backports.cached-property @ git+https://github.com/penguinolog/backports.cached_property.git@1.0.2
+bertopic @ git+https://github.com/MaartenGr/BERTopic.git@v0.16.3
+blinker @ git+https://github.com/pallets-eco/blinker.git@1.8.2
+blis @ git+https://github.com/explosion/cython-blis.git@v0.7.11
+Brotli @ git+https://github.com/google/brotli.git@v1.1.0
+catalogue @ git+https://github.com/explosion/catalogue.git@v2.0.10
+certifi @ git+https://github.com/certifi/python-certifi.git@2024.7.4
+cffi @ git+https://github.com/python-cffi/cffi.git@1.17.0
+charset-normalizer @ git+https://github.com/Ousret/charset_normalizer.git@3.3.2
+click @ git+https://github.com/pallets/click.git@8.1.7
+cloudpathlib @ git+https://github.com/drivendataorg/cloudpathlib.git@v0.18.1
+colorama @ git+https://github.com/tartley/colorama.git@0.4.6
+colorlog @ git+https://github.com/borntyping/python-colorlog.git@v6.8.2
+confection @ git+https://github.com/explosion/confection.git@0.1.5
+contourpy @ git+https://github.com/contourpy/contourpy.git@1.2.1
+cycler @ git+https://github.com/matplotlib/cycler.git@0.12.1
+cymem @ git+https://github.com/explosion/cymem.git@v2.0.8
+decorator @ git+https://github.com/micheles/decorator.git@5.1.1
+docopt @ git+https://github.com/docopt/docopt.git@0.6.2
+einops @ git+https://github.com/arogozhnikov/einops.git@v0.3.2
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+ffmpeg @ git+https://github.com/FFmpeg/FFmpeg.git@n1.4
+ffprobe @ git+https://github.com/FFmpeg/FFmpeg.git@n0.5
+filelock @ git+https://github.com/tox-dev/py-filelock.git@3.15.4
+Flask @ git+https://github.com/pallets/flask.git@3.0.3
+fonttools @ git+https://github.com/fonttools/fonttools.git@4.53.1
+frozenlist @ git+https://github.com/aio-libs/frozenlist.git@1.4.1
+fsspec @ git+https://github.com/fsspec/filesystem_spec.git@2024.6.1
+future @ git+https://github.com/PythonCharmers/python-future.git@1.0.0
+gensim @ git+https://github.com/RaRe-Technologies/gensim.git@4.3.3
+greenlet @ git+https://github.com/python-greenlet/greenlet.git@3.0.3
+grpcio @ git+https://github.com/grpc/grpc.git@v1.66.0
+hdbscan @ git+https://github.com/scikit-learn-contrib/hdbscan.git@0.8.38.post1
+hmmlearn @ git+https://github.com/hmmlearn/hmmlearn.git@0.2.8
+huggingface-hub @ git+https://github.com/huggingface/huggingface_hub.git@v0.24.6
+HyperPyYAML @ git+https://github.com/speechbrain/HyperPyYAML.git@1.2.2
+idna @ git+https://github.com/kjd/idna.git@v3.7
+importlib_metadata @ git+https://github.com/python/importlib_metadata.git@v8.4.0
+importlib_resources @ git+https://github.com/python/importlib_resources.git@v6.4.4
+itsdangerous @ git+https://github.com/pallets/itsdangerous.git@2.2.0
+Jinja2 @ git+https://github.com/pallets/jinja.git@3.1.4
+joblib @ git+https://github.com/joblib/joblib.git@1.4.2
+julius @ git+https://github.com/adefossez/julius.git@v0.2.7
+keybert @ git+https://github.com/MaartenGr/KeyBERT.git@v0.8.5
+kiwisolver @ git+https://github.com/nucleic/kiwi.git@1.4.5
+langcodes @ git+https://github.com/rspeer/langcodes.git@v3.4.0
+language_data @ git+https://github.com/rspeer/python-language-data.git@v1.2.0
+lazy_loader @ git+https://github.com/scientific-python/lazy_loader.git@v0.4
+librosa @ git+https://github.com/librosa/librosa.git@0.9.2
+lightning @ git+https://github.com/Lightning-AI/lightning.git@2.4.0
+lightning-utilities @ git+https://github.com/Lightning-AI/utilities.git@0.11.6
+llvmlite @ git+https://github.com/numba/llvmlite.git@v0.43.0
+Mako @ git+https://github.com/sqlalchemy/mako.git@v1.3.5
+marisa-trie @ git+https://github.com/pytries/marisa-trie.git@v1.2.0
+Markdown @ git+https://github.com/Python-Markdown/markdown.git@3.7
+markdown-it-py @ git+https://github.com/executablebooks/markdown-it-py.git@3.0.0
+MarkupSafe @ git+https://github.com/pallets/markupsafe.git@2.1.5
+matplotlib @ git+https://github.com/matplotlib/matplotlib.git@v3.9.2
+mdurl @ git+https://github.com/executablebooks/mdurl.git@0.1.2
+more-itertools @ git+https://github.com/more-itertools/more-itertools.git@v10.4.0
+mpmath @ git+https://github.com/fredrik-johansson/mpmath.git@1.3.0
+msgpack @ git+https://github.com/msgpack/msgpack-python.git@v1.0.8
+multidict @ git+https://github.com/aio-libs/multidict.git@v6.0.5
+murmurhash @ git+https://github.com/explosion/murmurhash.git@v1.0.10
+mutagen @ git+https://github.com/quodlibet/mutagen.git@v1.47.0
+networkx @ git+https://github.com/networkx/networkx.git@v2.8.8
+nltk @ git+https://github.com/nltk/nltk.git@3.9.1
 numba @ git+https://github.com/numba/numba.git
-numpy==1.26.4
-omegaconf==2.3.0
-openai-whisper==20231117
-optuna==3.6.1
-packaging==24.1
-pandas==2.2.2
-pillow==10.4.0
-platformdirs==4.2.2
-plotly==5.23.0
-pooch==1.8.2
-preshed==3.0.9
-primePy==1.3
-protobuf==5.27.3
-pyannote.core==4.5
-pyannote.database==4.1.3
-pyannote.metrics==3.2.1
-pyannote.pipeline==2.3
-pycparser==2.22
-pycryptodomex==3.20.0
-pydantic==2.8.2
-pydantic_core==2.20.1
-pyDeprecate==0.3.1
-Pygments==2.18.0
-pynndescent==0.5.13
-pyparsing==3.1.2
-python-dateutil==2.9.0.post0
-pytorch-lightning==2.4.0
-pytorch-metric-learning==1.7.3
-pytube==15.0.0
-pytz==2024.1
-PyYAML==6.0.2
-regex==2024.7.24
-requests==2.32.3
-resampy==0.4.3
-rich==13.7.1
-ruamel.yaml==0.18.6
-ruamel.yaml.clib==0.2.8
-safetensors==0.4.4
-scikit-learn==1.5.1
-scipy==1.13.1
-semver==2.13.0
-sentence-transformers==3.0.1
-sentencepiece==0.2.0
-shellingham==1.5.4
-simplejson==3.19.3
-singledispatchmethod==1.0
-six==1.16.0
-smart-open==7.0.4
-sortedcontainers==2.4.0
-SoundFile==0.10.3.post1
-soxr==0.4.0
-spacy==3.7.6
-spacy-legacy==3.0.12
-spacy-loggers==1.0.5
-speechbrain==0.5.16
-SQLAlchemy==2.0.32
-srsly==2.4.8
-sympy==1.13.2
-tabulate==0.9.0
-tenacity==9.0.0
-tensorboard==2.17.1
-tensorboard-data-server==0.7.2
-tensorboardX==2.6.2.2
-thinc==8.2.5
-threadpoolctl==3.5.0
-tiktoken==0.7.0
-tokenizers==0.19.1
-torch==2.4.0
-torch-audiomentations==0.11.1
-torch-pitch-shift==1.2.4
-torchaudio==2.4.0
-torchmetrics==0.11.4
-torchvision==0.19.0
-tqdm==4.66.5
-transformers==4.44.2
-typer==0.12.4
-typing_extensions==4.12.2
-tzdata==2024.1
-umap-learn==0.5.6
-urllib3==2.2.2
-whisper
-wasabi==1.1.3
-weasel==0.4.1
-websockets==13.0
-Werkzeug==3.0.4
-wrapt==1.16.0
-yarl==1.9.4
-yt-dlp==2024.8.6
-zipp==3.20.0
+numpy @ git+https://github.com/numpy/numpy.git@v1.26.4
+omegaconf @ git+https://github.com/omry/omegaconf.git@v2.3.0
+openai-whisper @ git+https://github.com/openai/whisper.git
+optuna @ git+https://github.com/optuna/optuna.git@v3.6.1
+packaging @ git+https://github.com/pypa/packaging.git@24.1
+pandas @ git+https://github.com/pandas-dev/pandas.git@v2.2.2
+pillow @ git+https://github.com/python-pillow/Pillow.git@10.4.0
+platformdirs @ git+https://github.com/platformdirs/platformdirs.git@4.2.2
+plotly @ git+https://github.com/plotly/plotly.py.git@v5.23.0
+pooch @ git+https://github.com/fatiando/pooch.git@v1.8.2
+preshed @ git+https://github.com/explosion/preshed.git@v3.0.9
+primePy @ git+https://github.com/janosh/primePy.git@v1.3
+protobuf @ git+https://github.com/protocolbuffers/protobuf.git@v5.27.3
+pyannote.core @ git+https://github.com/pyannote/pyannote-core.git@v4.5
+pyannote.database @ git+https://github.com/pyannote/pyannote-database.git@v4.1.3
+pyannote.metrics @ git+https://github.com/pyannote/pyannote-metrics.git@v3.2.1
+pyannote.pipeline @ git+https://github.com/pyannote/pyannote-pipeline.git@v2.3
+pycparser @ git+https://github.com/eliben/pycparser.git@v2.22
+pycryptodomex @ git+https://github.com/Legrandin/pycryptodome.git@v3.20.0
+pydantic @ git+https://github.com/pydantic/pydantic.git@v2.8.2
+pydantic_core @ git+https://github.com/pydantic/pydantic-core.git@v2.20.1
+pyDeprecate @ git+https://github.com/skypilot-org/pyDeprecate.git@v0.3.1
+Pygments @ git+https://github.com/pygments/pygments.git@2.18.0
+pynndescent @ git+https://github.com/lmcinnes/pynndescent.git@0.5.13
+pyparsing @ git+https://github.com/pyparsing/pyparsing.git@v3.1.2
+python-dateutil @ git+https://github.com/dateutil/dateutil.git@v2.9.0.post0
+pytorch-lightning @ git+https://github.com/Lightning-AI/pytorch-lightning.git@2.4.0
+pytorch-metric-learning @ git+https://github.com/KevinMusgrave/pytorch-metric-learning.git@v1.7.3
+pytube @ git+https://github.com/pytube/pytube.git@v15.0.0
+pytz @ git+https://github.com/stub42/pytz.git@2024.1
+PyYAML @ git+https://github.com/yaml/pyyaml.git@6.0.2
+regex @ git+https://github.com/mrabarnett/mrab-regex.git@2024.7.24
+requests @ git+https://github.com/psf/requests.git@v2.32.3
+resampy @ git+https://github.com/bmcfee/resampy.git@0.4.3
+rich @ git+https://github.com/Textualize/rich.git@v13.7.1
+ruamel.yaml @ git+https://github.com/ruamel/yaml.git@v0.18.6
+ruamel.yaml.clib @ git+https://github.com/ruamel/yaml.clib.git@v0.2.8
+safetensors @ git+https://github.com/huggingface/safetensors.git@v0.4.4
+scikit-learn @ git+https://github.com/scikit-learn/scikit-learn.git@1.5.1
+scipy @ git+https://github.com/scipy/scipy.git@v1.13.1
+semver @ git+https://github.com/python-semver/python-semver.git@v2.13.0
+sentence-transformers @ git+https://github.com/UKPLab/sentence-transformers.git@v3.0.1
+sentencepiece @ git+https://github.com/google/sentencepiece.git@v0.2.0
+shellingham @ git+https://github.com/sarugaku/shellingham.git@v1.5.4
+simplejson @ git+https://github.com/simplejson/simplejson.git@v3.19.3
+singledispatchmethod @ git+https://github.com/ikalnytskyi/singledispatchmethod.git@v1.0
+six @ git+https://github.com/benjaminp/six.git@v1.16.0
+smart-open @ git+https://github.com/RaRe-Technologies/smart_open.git@v7.0.4
+sortedcontainers @ git+https://github.com/grantjenks/python-sortedcontainers.git@v2.4.0
+SoundFile @ git+https://github.com/bastibe/python-soundfile.git@v0.10.3.post1
+soxr @ git+https://github.com/dofuuz/python-soxr.git@v0.4.0
+spacy @ git+https://github.com/explosion/spaCy.git@v3.7.6
+spacy-legacy @ git+https://github.com/explosion/spacy-legacy.git@v3.0.12
+spacy-loggers @ git+https://github.com/explosion/spacy-loggers.git@v1.0.5
+speechbrain @ git+https://github.com/speechbrain/speechbrain.git@v0.5.16
+SQLAlchemy @ git+https://github.com/sqlalchemy/sqlalchemy.git@v2.0.32
+srsly @ git+https://github.com/explosion/srsly.git@v2.4.8
+sympy @ git+https://github.com/sympy/sympy.git@v1.13.2
+tabulate @ git+https://github.com/astanin/python-tabulate.git@v0.9.0
+tenacity @ git+https://github.com/jd/tenacity.git@v9.0.0
+tensorboard @ git+https://github.com/tensorflow/tensorboard.git@v2.17.1
+tensorboard-data-server @ git+https://github.com/tensorflow/tensorboard.git@0.7.2
+tensorboardX @ git+https://github.com/lanpa/tensorboardX.git@v2.6.2.2
+thinc @ git+https://github.com/explosion/thinc.git@v8.2.5
+threadpoolctl @ git+https://github.com/joblib/threadpoolctl.git@v3.5.0
+tiktoken @ git+https://github.com/openai/tiktoken.git@v0.7.0
+tokenizers @ git+https://github.com/huggingface/tokenizers.git@v0.19.1
+torch @ git+https://github.com/pytorch/pytorch.git@v2.4.0
+torch-audiomentations @ git+https://github.com/asteroid-team/torch-audiomentations.git@v0.11.1
+torch-pitch-shift @ git+https://github.com/asteroid-team/torch-pitch-shift.git@v1.2.4
+torchaudio @ git+https://github.com/pytorch/audio.git@v2.4.0
+torchmetrics @ git+https://github.com/Lightning-AI/metrics.git@v0.11.4
+torchvision @ git+https://github.com/pytorch/vision.git@v0.19.0
+tqdm @ git+https://github.com/tqdm/tqdm.git@v4.66.5
+transformers @ git+https://github.com/huggingface/transformers.git@v4.44.2
+typer @ git+https://github.com/tiangolo/typer.git@v0.12.4
+typing_extensions @ git+https://github.com/python/typing_extensions.git@v4.12.2
+tzdata @ git+https://github.com/python/tzdata.git@2024.1
+umap-learn @ git+https://github.com/lmcinnes/umap.git@v0.5.6
+urllib3 @ git+https://github.com/urllib3/urllib3.git@v2.2.2
+whisper @ git+https://github.com/openai/whisper.git
+wasabi @ git+https://github.com/explosion/wasabi.git@v1.1.3
+weasel @ git+https://github.com/explosion/weasel.git@v0.4.1
+websockets @ git+https://github.com/aaugustin/websockets.git@v13.0
+Werkzeug @ git+https://github.com/pallets/werkzeug.git@v3.0.4
+wrapt @ git+https://github.com/GrahamDumpleton/wrapt.git@v1.16.0
+yarl @ git+https://github.com/aio-libs/yarl.git@v1.9.4
+yt-dlp @ git+https://github.com/yt-dlp/yt-dlp.git@2024.8.6
+zipp @ git+https://github.com/jaraco/zipp.git@v3.20.0
