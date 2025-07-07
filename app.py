@@ -257,7 +257,8 @@ def show_mindmap():
     return render_template('mindmap.html', mindmap_data=json.dumps(mindmap_data))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 
     # good day 
